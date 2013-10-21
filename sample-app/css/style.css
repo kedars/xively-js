@@ -405,9 +405,16 @@ a:visited {
 .xively-logo {
   float: right;
   clear: right;
-  width: 174px;
-  height: 25px;
+  width: 140px;
+  height: 57px;
   background: transparent url("../img/powered-by-xively.png") no-repeat top left;
+}
+.mrvl-logo {
+  float: left;
+  clear: right;
+  width: 140px;
+  height: 57px;
+  background: transparent url("../img/mrvl-smart.png") no-repeat top left;
 }
 
 .ui-toggle:hover,
