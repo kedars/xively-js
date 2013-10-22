@@ -13,6 +13,10 @@
   var feedID = getParam('feed_id');
   xively.setKey(getParam('api_key'));
 
+
+  if (feedID === "")
+    alert("Incorrect URL");
+
   // get all feed data in one shot
 
   xively.feed.get (feedID, function (data) {
