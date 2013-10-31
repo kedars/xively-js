@@ -43,19 +43,19 @@
             $(".app-state").addClass("loading").fadeIn(200);
 
             if ( this.checked ) {
-              xively.datastream.update(feedID, datastreamID, { "current_value": 1 }, function(){
+              xively.datastream.update(feedID, "target_state", { "current_value": 1 }, function(){
                 $(".app-state").removeClass("loading").fadeOut(200);
               });
             }
             else {
-              xively.datastream.update(feedID, datastreamID, { "current_value": 0 }, function(){
+              xively.datastream.update(feedID, "target_state", { "current_value": 0 }, function(){
                 $(".app-state").removeClass("loading").fadeOut(200);
               });
             }
           });
 
           // make it live
-          xively.datastream.subscribe(feedID, datastreamID, function ( event, data ) {
+          xively.datastream.subscribe(feedID, "current_state", function ( event, data ) {
             ui.fakeLoad();
 
             if ( parseInt(data["current_value"]) ) {
@@ -74,37 +74,12 @@
     for (var x = 0, len = feed.datastreams.length; x < len; x++) {
       datastream = feed.datastreams[x];
       value = parseInt(datastream["current_value"]);
-
       // LED
 
-      if ( datastream.id === "led_color" ) {
-        handleToggle( "lights", "led_color", value );
-      }
-
-
-      // UPTIME
-
-      if ( datastream.id === "uptime" ) {
-        var $temperature = $(".js-temperature");
-
-        $temperature.html( datastream["current_value"] );
-
-        // save changes
-        $temperature.on("custom-change", function( event, val ) {
-          $(".app-state").addClass("loading").fadeIn(200);
-          xively.datastream.update(feedID, "temperature", { "current_value": val }, function(){
-            $(".app-state").removeClass("loading").fadeOut(200);
-          });
-        });
-
-        // make it live
-        xively.datastream.subscribe( feedID, "temperature", function ( event , data ) {
-          ui.fakeLoad();
-          $temperature.html( data["current_value"] );
-        });
+      if ( datastream.id === "target_state" ) {
+        handleToggle( "lights", "target_state", value );
       }
     }
-
     // SHOW UI
 
     $(".app-loading").fadeOut(200, function(){

@@ -70,44 +70,4 @@ var ui      = {};
     });
   }
 
-  var handleVolume = function ( event ) {
-    var $range    = $(".js-volume"),
-        increase  = ( $(event.target).hasClass("js-volume-up") ) ? true : false,
-        curVal    = parseInt($range.val()),
-        targetVal = ( increase ) ? curVal + 10 : curVal - 10 ;
-
-    event.preventDefault();
-
-    if ( $(".app-state").hasClass("loading") ) { return false; }
-
-    if ( targetVal > 100 ) {
-      targetVal = 100;
-    }
-    else if ( targetVal < 0 ) {
-      targetVal = 0;
-    }
-
-    if ( curVal == targetVal ) { return false; }
-
-    $range.val(targetVal).trigger("custom-change", targetVal);
-  };
-
-  $(".js-volume-up").on("click", handleVolume);
-  $(".js-volume-down").on("click", handleVolume);
-
-  var handleTemp = function ( event ) {
-    var $temperature  = $(".js-temperature"),
-        increase      = ( $(event.target).hasClass("js-temp-up") ) ? true : false,
-        curVal        = parseInt($temperature.html()),
-        targetVal     = ( increase ) ? curVal + 1 : curVal - 1 ;
-
-    event.preventDefault();
-    if ( $(".app-state").hasClass("loading") || curVal == targetVal ) { return false; }
-
-    $temperature.html(targetVal).trigger("custom-change", targetVal);
-  }
-
-  $(".js-temp-up").on("click", handleTemp);
-  $(".js-temp-down").on("click", handleTemp);
-
 })( jQuery );
